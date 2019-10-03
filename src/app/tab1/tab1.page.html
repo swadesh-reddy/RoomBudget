@@ -7,6 +7,7 @@
 </ion-header>
 
 <ion-content>
+  <div class=""><span>current balance: {{ currentbalance }}</span></div>
     <ion-card class="welcome-card" *ngFor="let transaction of transactions">
         <ion-card-header>
             <ion-card-subtitle><span class="left">transfered to: </span><span class="transferto">{{transaction.transferto}}</span><span class="right">{{transaction.amount}}</span></ion-card-subtitle>

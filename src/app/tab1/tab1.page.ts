@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { TransactionService } from '../transaction.service';
+import { DateService } from '../date.service';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -7,34 +8,32 @@ import { TransactionService } from '../transaction.service';
 })
 export class Tab1Page implements OnInit {
     public transactions = [];
-    constructor(private transactionService: TransactionService) { }
+    public currentbalance:Number;
+    constructor(private transactionService: TransactionService, private dateFormat:DateService) { }
     ngOnInit() {
         this.getAllTransactions();
+        this.getCurrentBalance();
     }
     getAllTransactions() {
         this.transactionService.getTransaction(this);
     }
     handleMeasurements(transactions) {
         this.transactions = transactions;
+        console.log( this.transactions)
         for (var transaction in this.transactions) {
-            this.transactions[transaction].date =  this.getDateFormat(this.transactions[transaction].date);
+            console.log(this.transactions[transaction].date)
+            this.transactions[transaction].date =  this.dateFormat.getDateFormat(this.transactions[transaction].date);
+            this.transactions = this.transactions.reverse();
         }
     }
     clearStorage() {
         this.transactionService.clearTransactions();
     }
-    getDateFormat(timestamp) {
-        var time;
-        var currentTimeStamp = Math.floor(Date.now());
-        var currentyear = new Date(currentTimeStamp).getFullYear();
-        var currentMonth = new Date(currentTimeStamp).getMonth();
-        var currentDay = new Date(currentTimeStamp).getDay();
-        var currentHour = new Date(currentTimeStamp).getHours();
-        if (new Date(timestamp).getHours() == currentHour) {
-            time = new Date(timestamp).getMinutes() + " min ago";
-        } else {
-            time = new Date(timestamp).getHours();
-        }
-        return time;
+    getCurrentBalance(){
+        this.transactionService.getCurrentBalance().then((result)=>{
+            console.log(result);
+            this.currentbalance = result;
+        })
     }
+  
 }

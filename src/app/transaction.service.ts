@@ -11,8 +11,10 @@ export class TransactionService {
 
     getTransaction(obj) {
         this.storage.forEach((index, key, value) => {
+            if(key != "currentbalance"){
             this.transactions.push(index);
-            var object = obj;
+             }
+              var object = obj;
             this.storage.length().then((result) => {
                 if (Number(value) == result) {
                     console.log(value, result)
@@ -31,5 +33,13 @@ export class TransactionService {
     }
     clearTransactions() {
         this.storage.clear();
+    }
+    setCurrentBalance(balance){
+        this.storage.set("currentbalance", balance);
+    }
+    getCurrentBalance(){
+       return this.storage.get("currentbalance").then((result)=>{
+             return result;
+        })
     }
 }

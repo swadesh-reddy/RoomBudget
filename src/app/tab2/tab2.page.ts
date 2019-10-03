@@ -26,5 +26,14 @@ export class Tab2Page implements OnInit{
         data.date = Math.floor(Date.now());
         console.log(data)
         this.transactionService.setTransaction(data);
+        this.setCurrentBalance(data.amount)
+    }
+    setCurrentBalance(balance){
+        this.transactionService.getCurrentBalance().then((result)=>{
+            console.log(result);
+            if(result == undefined){result=0;}
+            result = result + balance;
+            this.transactionService.setCurrentBalance(result);
+        })
     }
 }
