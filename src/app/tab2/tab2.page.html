@@ -1,9 +1,61 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Tab Two
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>
+            Transaction
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+    <div class="collapsed">
+        <div class="collapse-head" (click)="handleCollapseBody($event)">
+            <ion-icon name="add"></ion-icon><label>deposit Amount</label>
+        </div>
+        <div class="collapse-body">
+            <form (ngSubmit)="onSubmit(addForm.value)" #addForm="ngForm">
+                <ion-item>
+                    <ion-label>Transfer to</ion-label>
+                    <ion-select interface="popover" placeholder="Select One"  name="transferto" (ngModel)="trasaction.transferto" #transferto ="ngModel" required>
+                        <ion-select-option value="one">one</ion-select-option>
+                        <ion-select-option value="two">twoo</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item>
+                    <ion-label>amount</ion-label>
+                    <ion-input type="Number"  name="amount" (ngModel)="trasaction.amount" #amount ="ngModel" required></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Comment</ion-label>
+                    <ion-textarea name="description" (ngModel)="trasaction.description"  #description ="ngModel" required></ion-textarea>
+                </ion-item><br />
+                <ion-button color="primary" size="medium" expand="block" ion-button type="submit" block>Submit</ion-button>
+            </form>
+        </div>
+    </div>
+    <div class="collapsed">
+        <div class="collapse-head" (click)="handleCollapseBody($event)">
+            <ion-icon name="remove"></ion-icon><label>withdraw Amount</label>
+        </div>
+        <div class="collapse-body">
+            <form (ngSubmit)="onSubmit(loginForm.value)" #loginForm="ngForm">
+                <ion-item>
+                    <ion-label>Transfer to</ion-label>
+                    <ion-select interface="popover" placeholder="Select One">
+                        <ion-select-option value="one">one</ion-select-option>
+                        <ion-select-option value="two">twoo</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item>
+                    <ion-label>amount</ion-label>
+                    <ion-input type="text" name="title"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Comment</ion-label>
+                    <ion-textarea name="description"></ion-textarea>
+                </ion-item><br />
+                <ion-button color="primary" size="medium" expand="block" ion-button type="submit" block>Submit</ion-button>
+            </form>
+        </div>
+    </div>
+
+</ion-content>

@@ -1,5 +1,7 @@
 {
   "name": "RoomBudget",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
