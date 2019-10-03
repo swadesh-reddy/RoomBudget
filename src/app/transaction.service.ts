@@ -5,13 +5,21 @@ import { Storage } from '@ionic/storage';
   providedIn: 'root'
 })
 export class TransactionService {
+     public transactions = [];
 
     constructor(private storage: Storage) { }
 
-    getTransaction() {
-        var values;
+    getTransaction(obj) {
         this.storage.forEach((index, key, value) => {
-            console.log(index, key);
+            this.transactions.push(index);
+            var object = obj;
+            this.storage.length().then((result) => {
+                if (Number(value) == result) {
+                    console.log(value, result)
+                    object.handleMeasurements(this.transactions)
+                }
+            })
+            console.log(this.transactions);
         });
     }
     setTransaction(transaction) {

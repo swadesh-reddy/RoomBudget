@@ -23,7 +23,8 @@ export class Tab2Page implements OnInit{
     }
 
     onSubmit(data) {
-        this.transactionService.setTransaction(data);
+        data.date = Math.floor(Date.now());
         console.log(data)
+        this.transactionService.setTransaction(data);
     }
 }

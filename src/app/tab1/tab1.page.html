@@ -1,20 +1,18 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
+    <ion-title (click)="clearStorage()">
      Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-button expand="block" type="button" (click)="clearStorage()">Clear Storage</ion-button>
-    <ion-card class="welcome-card">
-      <ion-card-header>
-        <ion-card-subtitle>Get Started</ion-card-subtitle>
-        <ion-card-title>Welcome to Ionic</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p>Now that your app has been created, you'll want to start building out features and components. Check out some of the resources below for next steps.</p>
-      </ion-card-content>
+    <ion-card class="welcome-card" *ngFor="let transaction of transactions">
+        <ion-card-header>
+            <ion-card-subtitle><span class="left">transfered to: </span><span class="transferto">{{transaction.transferto}}</span><span class="right">{{transaction.amount}}</span></ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+            <div><span class="left">{{transaction.description}}</span><span class="right">{{transaction.date}}</span></div>  
+        </ion-card-content>
     </ion-card>
  </ion-content>
