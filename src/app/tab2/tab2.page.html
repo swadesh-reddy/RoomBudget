@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>
+        <ion-title (click)="clearStorage()">
             Transaction
         </ion-title>
     </ion-toolbar>
@@ -12,12 +12,19 @@
             <ion-icon name="add"></ion-icon><label>deposit Amount</label>
         </div>
         <div class="collapse-body">
-            <form (ngSubmit)="onSubmit(addForm.value)" #addForm="ngForm">
+            <form (ngSubmit)="onAddForm(addForm.value)" #addForm="ngForm">
                 <ion-item>
-                    <ion-label>Transfer to</ion-label>
-                    <ion-select interface="popover" placeholder="Select One"  name="transferto" (ngModel)="trasaction.transferto" #transferto ="ngModel" required>
-                        <ion-select-option value="one">one</ion-select-option>
-                        <ion-select-option value="two">twoo</ion-select-option>
+                    <ion-label>recieved from: </ion-label>
+                    <ion-select interface="popover" placeholder="Select One" name="transferto" (ngModel)="trasaction.transferto" #transferto="ngModel" required>
+                        <ion-select-option value="swadesh">swadesh</ion-select-option>
+                        <ion-select-option value="sunil">sunil</ion-select-option>
+                        <ion-select-option value="vijay">viay</ion-select-option>
+                        <ion-select-option value="anvesh">anvesh</ion-select-option>
+                        <ion-select-option value="varun">varun</ion-select-option>
+                        <ion-select-option value="kiran">kiran</ion-select-option>
+                        <ion-select-option value="mohan">mohan</ion-select-option>
+                        <ion-select-option value="revant">revanth</ion-select-option>
+                        <ion-select-option value="vinod">vinod</ion-select-option>
                     </ion-select>
                 </ion-item>
                 <ion-item>
@@ -25,10 +32,19 @@
                     <ion-input type="Number"  name="amount" (ngModel)="trasaction.amount" #amount ="ngModel" required></ion-input>
                 </ion-item>
                 <ion-item>
-                    <ion-label>Comment</ion-label>
-                    <ion-textarea name="description" (ngModel)="trasaction.description"  #description ="ngModel" required></ion-textarea>
+                    <input list="browsers" name="description" (ngModel)="trasaction.description"  #description ="ngModel" required placeholder="description">
+                    <datalist id="browsers">
+                        <option value="Room rent">
+                        <option value="vegetables">
+                        <option value="dmart">
+                        <option value="chicken">
+                        <option value="gas">
+                        <option value="wifi">
+                        <option value="shop">
+
+                    </datalist>
                 </ion-item><br />
-                <ion-button color="primary" size="medium" expand="block" ion-button type="submit" block>Submit</ion-button>
+                <ion-button color="success" [disabled]="!addForm.valid" size="medium" expand="block" ion-button type="submit" block>Submit</ion-button>
             </form>
         </div>
     </div>
@@ -37,23 +53,41 @@
             <ion-icon name="remove"></ion-icon><label>withdraw Amount</label>
         </div>
         <div class="collapse-body">
-            <form (ngSubmit)="onSubmit(loginForm.value)" #loginForm="ngForm">
+            <form (ngSubmit)="onSubtracForm(subtractForm.value)" #subtractForm="ngForm">
                 <ion-item>
-                    <ion-label>Transfer to</ion-label>
-                    <ion-select interface="popover" placeholder="Select One">
-                        <ion-select-option value="one">one</ion-select-option>
-                        <ion-select-option value="two">twoo</ion-select-option>
+                    <ion-label>transfer to :</ion-label>
+                    <ion-select placeholder="Select One" name="transferto" (ngModel)="trasaction.transferto" #transferto="ngModel" required>
+                        <ion-select interface="popover" placeholder="Select One" name="transferto" (ngModel)="trasaction.transferto" #transferto="ngModel" required>
+                            <ion-select-option value="swadesh">swadesh</ion-select-option>
+                            <ion-select-option value="sunil">sunil</ion-select-option>
+                            <ion-select-option value="vijay">viay</ion-select-option>
+                            <ion-select-option value="anvesh">anvesh</ion-select-option>
+                            <ion-select-option value="varun">varun</ion-select-option>
+                            <ion-select-option value="kiran">kiran</ion-select-option>
+                            <ion-select-option value="mohan">mohan</ion-select-option>
+                            <ion-select-option value="revant">revanth</ion-select-option>
+                            <ion-select-option value="vinod">vinod</ion-select-option>
+                        </ion-select>
                     </ion-select>
                 </ion-item>
                 <ion-item>
                     <ion-label>amount</ion-label>
-                    <ion-input type="text" name="title"></ion-input>
+                    <ion-input type="text"   name="amount" (ngModel)="trasaction.amount" #amount ="ngModel" required></ion-input>
                 </ion-item>
                 <ion-item>
-                    <ion-label>Comment</ion-label>
-                    <ion-textarea name="description"></ion-textarea>
+                    <input list="browsers" name="description" (ngModel)="trasaction.description" #description="ngModel" required placeholder="description">
+                    <datalist id="browsers">
+                        <option value="Room rent">
+                        <option value="vegetables">
+                        <option value="dmart">
+                        <option value="chicken">
+                        <option value="gas">
+                        <option value="wifi">
+                        <option value="shop">
+
+                    </datalist>
                 </ion-item><br />
-                <ion-button color="primary" size="medium" expand="block" ion-button type="submit" block>Submit</ion-button>
+                <ion-button color="danger" [disabled]="!subtractForm.valid" size="medium" expand="block" ion-button type="submit" block>send</ion-button>
             </form>
         </div>
     </div>

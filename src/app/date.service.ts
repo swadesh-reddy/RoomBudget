@@ -4,25 +4,41 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class DateService {
-  constructor() { }
+    constructor() { }
+        
   getDateFormat(timestamp) {
-    var time;
+    var time:any;
     var currentTimeStamp = Math.floor(Date.now());
-    var currentDay = new Date(currentTimeStamp).getDay();
+    var currentDay = new Date(currentTimeStamp).getDate();
     var currentHour = new Date(currentTimeStamp).getHours();
-    
-    if(new Date(timestamp).getDay() == currentDay){
-    if (new Date(timestamp).getHours() == currentHour) {
-        time = new Date(currentTimeStamp).getMinutes() - new Date(timestamp).getMinutes();
-        time = time + ' min ago'
+      console.log(new Date(timestamp).getDate(), currentDay)
+      if ((currentTimeStamp) / 1000 - (timestamp) / 1000 < 86400){
+          if ((currentTimeStamp) / 1000 - (timestamp) / 1000 < 3600) {
+              time = ((currentTimeStamp) / 1000 - (timestamp) / 1000) / 60;  
+        time = (time).toFixed(0) + ' min ago'
     } else {
-        time = new Date(currentTimeStamp).getHours() - new Date(timestamp).getHours();
-        time = time + ' hours ago';
+        time = ((currentTimeStamp) / 1000 - (timestamp) / 1000) / 3600;  
+              time = (time).toFixed(0) + ' hours ago';
     }
 }else{
      time = new Date(timestamp).getDate()+"/"+(Number(new Date(timestamp).getMonth())+1)+"/"+new Date(timestamp).getFullYear();
      console.log(time)
 }
     return time;
+    }
+     getGreetings() {
+    var greeting;
+    var time = new Date().getHours();
+    if (time < 10) {
+        greeting = "Good morning";
+    } else if (time < 16) {
+        greeting = "Good Afternoon";
+    } else if (time < 20) {
+        greeting = "Good evening";
+    }
+    else {
+        greeting = "Good night";
+        }
+        return greeting;
 }
 }

@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { AuthService } from './auth.service';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransactionService {
      public transactions = [];
-
-    constructor(private storage: Storage) { }
+    token: any;
+    constructor(private storage: Storage, private auth: AuthService, private http: HttpClient) { }
 
     getTransaction(obj) {
         this.storage.forEach((index, key, value) => {
@@ -17,7 +19,6 @@ export class TransactionService {
               var object = obj;
             this.storage.length().then((result) => {
                 if (Number(value) == result) {
-                    console.log(value, result)
                     object.handleMeasurements(this.transactions)
                 }
             })
@@ -37,9 +38,25 @@ export class TransactionService {
     setCurrentBalance(balance){
         this.storage.set("currentbalance", balance);
     }
-    getCurrentBalance(){
-       return this.storage.get("currentbalance").then((result)=>{
-             return result;
-        })
+    getCurrentBalance() {
+        return this.storage.get("currentbalance").then((result) => {
+              return result;
+        });
+    }
+
+    addTransactionOnline(data) {
+        this.token = this.auth.loadToken();
+        const headers = this.auth._headers.append('Authorization', 'Bearer ' + this.token);
+        headers.set('Content-Type', 'multipart/form-data');
+        return this.http.post(this.auth.url + '/uploadTransaction', data, { headers: headers });
+
+    }
+
+    getTransactionsOnline() {
+        this.token = this.auth.loadToken();
+        const headers = this.auth._headers.append('Authorization', 'Bearer ' + this.token);
+        headers.set('Content-Type', 'multipart/form-data');
+        return this.http.post(this.auth.url + '/getTransactions', { headers: headers });
+
     }
 }

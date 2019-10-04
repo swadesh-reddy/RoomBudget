@@ -1,16 +1,19 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title (click)="clearStorage()">
-     Home
-    </ion-title>
+      <ion-title [routerLink]="[('/tabs/tab1')]">
+          {{greetings}}
+      </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class=""><span>current balance: {{ currentbalance }}</span></div>
+ <div class="currentbalance"><ion-label color="tertiary">current balance:  &#x20b9;{{ currentbalance }}</ion-label></div>
     <ion-card class="welcome-card" *ngFor="let transaction of transactions">
         <ion-card-header>
-            <ion-card-subtitle><span class="left">transfered to: </span><span class="transferto">{{transaction.transferto}}</span><span class="right">{{transaction.amount}}</span></ion-card-subtitle>
+            <ion-card-subtitle>
+                <div *ngIf="transaction.transactiontype == 'add'" class=""><span class="left">recived from: </span><span class="transferto">{{transaction.transferto}}</span><span class="text text-success right"><ion-icon name="add"></ion-icon> &#x20b9;{{transaction.amount}}</span></div>
+                <div  *ngIf="transaction.transactiontype == 'subtract'" class=""><span class="left">tranfer to: </span><span class="transferto">{{transaction.transferto}}</span><span class="text text-danger right"> <ion-icon name="remove"></ion-icon> &#x20b9;{{transaction.amount}}</span></div>
+            </ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
             <div><span class="left">{{transaction.description}}</span><span class="right">{{transaction.date}}</span></div>  
